@@ -162,7 +162,25 @@ def heurisitic(n, e):
 def main():
     end.show((255, 8, 127), 0)
     start.show((255, 8, 127), 0)
-    if len(openSet) > 0:
+
+    if len(openSet) == 0:
+    	Tk().wm_withdraw()
+    	result = messagebox.askokcancel('Path doesnt exist',('No Path exists'))
+
+    	if result == True:
+    		os.execl(sys.executable,sys.executable, *sys.argv)
+    	else:
+            ag = True
+            while ag:
+                ev = pygame.event.get()
+                for event in ev:
+                    if event.type == pygame.KEYDOWN:
+                        ag = False
+                        break
+
+		##pygame.quit()
+
+    elif len(openSet) > 0:
         lowestIndex = 0
         for i in range(len(openSet)):
             if openSet[i].f < openSet[lowestIndex].f:
@@ -213,6 +231,9 @@ def main():
 
             if neighbor.previous == None:
                 neighbor.previous = current
+
+
+
     if var.get():
         for i in range(len(openSet)):
             openSet[i].show(green, 0)
